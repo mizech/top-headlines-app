@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  TopHeadlinesApp
+//
+//  Created by Michael on 28.01.25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+API_KEY = bf448bb4cc894e67a88b820c17d8077f
+
+

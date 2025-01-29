@@ -42,6 +42,12 @@ struct ContentView: View {
             .presentationDetents([.medium, .large])
             .presentationDragIndicator(.visible)
         })
+        .onChange(of: pageSize, {
+            mainVM.pageSize = pageSize
+            Task {
+                await mainVM.loadHeadlines()
+            }
+        })
         .padding()
         .task() {
             print(await mainVM.loadHeadlines())

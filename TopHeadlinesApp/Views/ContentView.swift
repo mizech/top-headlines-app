@@ -11,7 +11,11 @@ struct ContentView: View {
             List {
                 ForEach(mainVM.articles) { article in
                     VStack(alignment: .leading) {
-                        Text(article.title ?? "").lineLimit(3)
+                        NavigationLink {
+                            HeadlineDetailsView()
+                        } label: {
+                            Text(article.title ?? "").lineLimit(3)
+                        }
                     }
                 }
             }.listStyle(.plain)

@@ -4,6 +4,7 @@ struct ContentView: View {
     let mainVM = MainViewModel()
     @State private var isTweakSheetShown = false
     @State private var pageSize = 20
+    @State private var category = Category.gen
     
     var body: some View {
         NavigationStack {
@@ -27,23 +28,37 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isTweakSheetShown, content: {
             VStack {
-                Section("Count of headline to display") {
+                Section("Set count of headlines to display") {
                     Picker("How many headlines?", selection: $pageSize) {
+                        Text("5").tag(5)
                         Text("10").tag(10)
                         Text("20").tag(20)
                         Text("40").tag(40)
                         Text("80").tag(80)
                     }.pickerStyle(.segmented)
                 }
+                Section("Set category") {
+                    Picker("Category", selection: $category) {
+                        ForEach(Category.allCases, id: \.self) { cat in
+                            Text(cat.rawValue).tag(cat)
+                        }
+                    }
+                }.padding(.top, 15)
                 Spacer()
             }
             .padding()
-            .padding(.top, 15)
+            .padding(.top, 20)
             .presentationDetents([.medium, .large])
             .presentationDragIndicator(.visible)
         })
         .onChange(of: pageSize, {
             mainVM.pageSize = pageSize
+            Task {
+                await mainVM.loadHeadlines()
+            }
+        })
+        .onChange(of: category, {
+            mainVM.category = category.rawValue
             Task {
                 await mainVM.loadHeadlines()
             }

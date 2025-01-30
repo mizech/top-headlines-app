@@ -1,8 +1,8 @@
 import Foundation
 
-enum Category: String {
-    case biz = "business"
-    case tech = "technology"
-    case sci = "science"
-    case gen = "general"
+enum Category: String, CaseIterable {
+    case biz = "Business"
+    case tech = "Technology"
+    case sci = "Science"
+    case gen = "General"
 }

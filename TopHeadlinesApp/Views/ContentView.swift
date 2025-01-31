@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    let mainVM = MainViewModel()
+    @Environment(MainViewModel.self) var mainVM
+    
     @State private var isTweakSheetShown = false
     @State private var pageSize = 20
     @State private var category = Category.gen
@@ -12,7 +13,7 @@ struct ContentView: View {
                 ForEach(mainVM.articles) { article in
                     VStack(alignment: .leading) {
                         NavigationLink {
-                            HeadlineDetailsView()
+                            ArticleDetailsView(article: article)
                         } label: {
                             Text(article.title ?? "").lineLimit(3)
                         }
@@ -56,20 +57,22 @@ struct ContentView: View {
             .presentationDragIndicator(.visible)
         })
         .onChange(of: pageSize, {
-            mainVM.pageSize = pageSize
-            Task {
-                await mainVM.loadHeadlines()
-            }
+            updateMainVM()
         })
         .onChange(of: category, {
-            mainVM.category = category.rawValue
-            Task {
-                await mainVM.loadHeadlines()
-            }
+            updateMainVM()
         })
         .padding()
         .task() {
-            print(await mainVM.loadHeadlines())
+            updateMainVM()
+        }
+    }
+    
+    func updateMainVM() {
+        mainVM.pageSize = self.pageSize
+        mainVM.category = self.category.rawValue
+        Task {
+            await mainVM.loadHeadlines()
         }
     }
 }

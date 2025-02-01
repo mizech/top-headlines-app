@@ -29,7 +29,7 @@ struct MainView: View {
                         }
                     }
                 })
-                .navigationTitle("Top-Headlines")
+                .navigationTitle("Top-Headlines App")
         }
         .sheet(isPresented: $isTweakSheetShown, content: {
             VStack {

@@ -2,7 +2,7 @@ import Foundation
 
 @Observable
 class MainViewModel {
-    var category = "technology"
+    var category = Category.gen.rawValue
     var pageSize = 20
     var articles = [Article]()
     var strURL: String {

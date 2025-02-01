@@ -2,7 +2,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Binding var isOnboardingDone: Bool
-    @State var currTab = 1
+    @State var currTab = Tabs.one
     
     var body: some View {
         Text("Top-Headlines App")
@@ -16,7 +16,7 @@ struct OnboardingView: View {
                 Text("Use the controls to tweak the data, "
                         + "which become displayed.")
                 Button {
-                    currTab = 2
+                    currTab = Tabs.two
                 } label: {
                     Text("Next")
                         .padding()
@@ -28,7 +28,7 @@ struct OnboardingView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 Spacer()
-            }.tag(1)
+            }.tag(Tabs.one)
             VStack(spacing: 22) {
                 Text("Navigation to the details-view of a news-article:"
                         + "Tab on a single headline, within the list.")
@@ -45,7 +45,7 @@ struct OnboardingView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 Button {
-                    currTab = 1
+                    currTab = Tabs.one
                 } label: {
                     Text("Previous")
                         .padding()
@@ -57,7 +57,7 @@ struct OnboardingView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 Spacer()
-            }.tag(2)
+            }.tag(Tabs.two)
         }
         .padding()
         .tabViewStyle(.page)

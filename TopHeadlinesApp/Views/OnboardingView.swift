@@ -2,7 +2,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Binding var isOnboardingDone: Bool
-    @State var currTab = Tabs.one
+    @State var currTab = Page.one
     
     var body: some View {
         Text("Top-Headlines App")
@@ -12,11 +12,13 @@ struct OnboardingView: View {
         TabView(selection: $currTab) {
             VStack(alignment: .leading, spacing: 22) {
                 Text("Use the gear-button on the top to open "
-                        + "the settings-screen.")
+                     + "the settings-screen.")
                 Text("Use the controls to tweak the data, "
-                        + "which become displayed.")
+                     + "which become displayed.")
                 Button {
-                    currTab = Tabs.two
+                    withAnimation {
+                        currTab = Page.two
+                    }
                 } label: {
                     Text("Next")
                         .padding()
@@ -28,10 +30,10 @@ struct OnboardingView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 Spacer()
-            }.tag(Tabs.one)
+            }.tag(Page.one)
             VStack(spacing: 22) {
                 Text("Navigation to the details-view of a news-article:"
-                        + "Tab on a single headline, within the list.")
+                     + "Tap on a single headline, within the list.")
                 Button {
                     isOnboardingDone.toggle()
                 } label: {
@@ -45,7 +47,9 @@ struct OnboardingView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 Button {
-                    currTab = Tabs.one
+                    withAnimation {
+                        currTab = Page.one
+                    }
                 } label: {
                     Text("Previous")
                         .padding()
@@ -57,7 +61,7 @@ struct OnboardingView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 Spacer()
-            }.tag(Tabs.two)
+            }.tag(Page.two)
         }
         .padding()
         .tabViewStyle(.page)

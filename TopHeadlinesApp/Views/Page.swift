@@ -1,6 +1,6 @@
 import Foundation
 
-enum Tabs {
+enum Page {
     case one
     case two
 }
